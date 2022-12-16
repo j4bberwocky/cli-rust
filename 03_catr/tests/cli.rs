@@ -80,10 +80,14 @@ fn run_stdin(
     Ok(())
 }
 
-// --------------------------------------------------
+// -------------------------------------------------- FAIL
+// cargo run -- tests/inputs/the-bustle.txt &> tmp.txt
+// cargo build
+// .\target\debug\catr.exe tests/inputs/the-bustle.txt > tmpCatr.txt
+// cat tests/inputs/the-bustle.txt > tmpCat.txt
 #[test]
 fn bustle_stdin() -> TestResult {
-    run_stdin(BUSTLE, &["-"], "tests/expected/the-bustle.txt.stdin.out")
+    run_stdin(BUSTLE, &["-"], "tests/expected_windows/the-bustle.txt.stdin.out")
 }
 
 // --------------------------------------------------
@@ -92,7 +96,7 @@ fn bustle_stdin_n() -> TestResult {
     run_stdin(
         BUSTLE,
         &["-n", "-"],
-        "tests/expected/the-bustle.txt.n.stdin.out",
+        "tests/expected_windows/the-bustle.txt.n.stdin.out",
     )
 }
 
@@ -102,56 +106,56 @@ fn bustle_stdin_b() -> TestResult {
     run_stdin(
         BUSTLE,
         &["-b", "-"],
-        "tests/expected/the-bustle.txt.b.stdin.out",
+        "tests/expected_windows/the-bustle.txt.b.stdin.out",
     )
 }
 
 // --------------------------------------------------
 #[test]
 fn empty() -> TestResult {
-    run(&[EMPTY], "tests/expected/empty.txt.out")
+    run(&[EMPTY], "tests/expected_windows/empty.txt.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn empty_n() -> TestResult {
-    run(&["-n", EMPTY], "tests/expected/empty.txt.n.out")
+    run(&["-n", EMPTY], "tests/expected_windows/empty.txt.n.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn empty_b() -> TestResult {
-    run(&["-b", EMPTY], "tests/expected/empty.txt.b.out")
+    run(&["-b", EMPTY], "tests/expected_windows/empty.txt.b.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn fox() -> TestResult {
-    run(&[FOX], "tests/expected/fox.txt.out")
+    run(&[FOX], "tests/expected_windows/fox.txt.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn fox_n() -> TestResult {
-    run(&["-n", FOX], "tests/expected/fox.txt.n.out")
+    run(&["-n", FOX], "tests/expected_windows/fox.txt.n.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn fox_b() -> TestResult {
-    run(&["-b", FOX], "tests/expected/fox.txt.b.out")
+    run(&["-b", FOX], "tests/expected_windows/fox.txt.b.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn spiders() -> TestResult {
-    run(&[SPIDERS], "tests/expected/spiders.txt.out")
+    run(&[SPIDERS], "tests/expected_windows/spiders.txt.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn spiders_n() -> TestResult {
-    run(&["--number", SPIDERS], "tests/expected/spiders.txt.n.out")
+    run(&["--number", SPIDERS], "tests/expected_windows/spiders.txt.n.out")
 }
 
 // --------------------------------------------------
@@ -159,42 +163,42 @@ fn spiders_n() -> TestResult {
 fn spiders_b() -> TestResult {
     run(
         &["--number-nonblank", SPIDERS],
-        "tests/expected/spiders.txt.b.out",
+        "tests/expected_windows/spiders.txt.b.out",
     )
 }
 
 // --------------------------------------------------
 #[test]
 fn bustle() -> TestResult {
-    run(&[BUSTLE], "tests/expected/the-bustle.txt.out")
+    run(&[BUSTLE], "tests/expected_windows/the-bustle.txt.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn bustle_n() -> TestResult {
-    run(&["-n", BUSTLE], "tests/expected/the-bustle.txt.n.out")
+    run(&["-n", BUSTLE], "tests/expected_windows/the-bustle.txt.n.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn bustle_b() -> TestResult {
-    run(&["-b", BUSTLE], "tests/expected/the-bustle.txt.b.out")
+    run(&["-b", BUSTLE], "tests/expected_windows/the-bustle.txt.b.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn all() -> TestResult {
-    run(&[FOX, SPIDERS, BUSTLE], "tests/expected/all.out")
+    run(&[FOX, SPIDERS, BUSTLE], "tests/expected_windows/all.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn all_n() -> TestResult {
-    run(&[FOX, SPIDERS, BUSTLE, "-n"], "tests/expected/all.n.out")
+    run(&[FOX, SPIDERS, BUSTLE, "-n"], "tests/expected_windows/all.n.out")
 }
 
 // --------------------------------------------------
 #[test]
 fn all_b() -> TestResult {
-    run(&[FOX, SPIDERS, BUSTLE, "-b"], "tests/expected/all.b.out")
+    run(&[FOX, SPIDERS, BUSTLE, "-b"], "tests/expected_windows/all.b.out")
 }
