@@ -11,6 +11,7 @@ const EMPTY: &str = "tests/inputs/empty.txt";
 const FOX: &str = "tests/inputs/fox.txt";
 const SPIDERS: &str = "tests/inputs/spiders.txt";
 const BUSTLE: &str = "tests/inputs/the-bustle.txt";
+const TABS: &str = "tests/inputs/tabs.txt";
 
 // --------------------------------------------------
 #[test]
@@ -112,6 +113,16 @@ fn bustle_stdin_b() -> TestResult {
 
 // --------------------------------------------------
 #[test]
+fn bustle_stdin_b_e() -> TestResult {
+    run_stdin(
+        BUSTLE,
+        &["-bE", "-"],
+        "tests/expected_windows/the-bustle.txt.b.E.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
 fn empty() -> TestResult {
     run(&[EMPTY], "tests/expected_windows/empty.txt.out")
 }
@@ -148,6 +159,12 @@ fn fox_b() -> TestResult {
 
 // --------------------------------------------------
 #[test]
+fn fox_e() -> TestResult {
+    run(&["-E", FOX], "tests/expected_windows/fox.txt.E.out")
+}
+
+// --------------------------------------------------
+#[test]
 fn spiders() -> TestResult {
     run(&[SPIDERS], "tests/expected_windows/spiders.txt.out")
 }
@@ -169,6 +186,15 @@ fn spiders_b() -> TestResult {
 
 // --------------------------------------------------
 #[test]
+fn spiders_e() -> TestResult {
+    run(
+        &["--show-ends", SPIDERS],
+        "tests/expected_windows/spiders.txt.E.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
 fn bustle() -> TestResult {
     run(&[BUSTLE], "tests/expected_windows/the-bustle.txt.out")
 }
@@ -177,6 +203,18 @@ fn bustle() -> TestResult {
 #[test]
 fn bustle_n() -> TestResult {
     run(&["-n", BUSTLE], "tests/expected_windows/the-bustle.txt.n.out")
+}
+
+// --------------------------------------------------
+#[test]
+fn bustle_e() -> TestResult {
+    run(&["-E", BUSTLE], "tests/expected_windows/the-bustle.txt.E.out")
+}
+
+// --------------------------------------------------
+#[test]
+fn bustle_n_e() -> TestResult {
+    run(&["-nE", BUSTLE], "tests/expected_windows/the-bustle.txt.n.E.out")
 }
 
 // --------------------------------------------------
@@ -201,4 +239,64 @@ fn all_n() -> TestResult {
 #[test]
 fn all_b() -> TestResult {
     run(&[FOX, SPIDERS, BUSTLE, "-b"], "tests/expected_windows/all.b.out")
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_t() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-T", "-"],
+        "tests/expected_windows/tabs.txt.T.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_t_b() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-Tb", "-"],
+        "tests/expected_windows/tabs.txt.T.b.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_n_t() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-nT", "-"],
+        "tests/expected_windows/tabs.txt.n.T.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_n_e() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-nE", "-"],
+        "tests/expected_windows/tabs.txt.n.E.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_t_b_e() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-TbE", "-"],
+        "tests/expected_windows/tabs.txt.T.b.E.stdin.out",
+    )
+}
+
+// --------------------------------------------------
+#[test]
+fn tab_stdin_e_n_t() -> TestResult {
+    run_stdin(
+        TABS,
+        &["-EnT", "-"],
+        "tests/expected_windows/tabs.txt.E.n.T.stdin.out",
+    )
 }

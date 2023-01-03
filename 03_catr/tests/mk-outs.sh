@@ -12,6 +12,7 @@ FOX="$ROOT/fox.txt"
 SPIDERS="$ROOT/spiders.txt"
 BUSTLE="$ROOT/the-bustle.txt"
 ALL="$EMPTY $FOX $SPIDERS $BUSTLE"
+TABS="$ROOT/tabs.txt"
 
 for FILE in $ALL; do
     BASENAME=$(basename "$FILE")
@@ -27,3 +28,10 @@ cat -b $ALL > $OUT_DIR/all.b.out
 cat    < $BUSTLE > $OUT_DIR/$(basename $BUSTLE).stdin.out
 cat -n < $BUSTLE > $OUT_DIR/$(basename $BUSTLE).n.stdin.out
 cat -b < $BUSTLE > $OUT_DIR/$(basename $BUSTLE).b.stdin.out
+
+cat -T   < $TABS   > $OUT_DIR/$(basename $TABS).T.stdin.out
+cat -Tb  < $TABS   > $OUT_DIR/$(basename $TABS).T.b.stdin.out
+cat -nT  < $TABS   > $OUT_DIR/$(basename $TABS).n.T.stdin.out
+cat -nE  < $TABS   > $OUT_DIR/$(basename $TABS).n.E.stdin.out
+cat -TbE < $TABS   > $OUT_DIR/$(basename $TABS).T.b.E.stdin.out
+cat -EnT < $TABS   > $OUT_DIR/$(basename $TABS).E.n.T.stdin.out

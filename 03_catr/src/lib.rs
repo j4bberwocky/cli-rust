@@ -35,11 +35,15 @@ poi procedere per implementare come esercizio more e less andando a guardare il 
 
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
+const TAB_ESCAPE: &str = "^I";
+
 #[derive(Debug)]
 pub struct Config {
     files: Vec<String>,
     number_lines: bool,
     number_nonblank_lines: bool,
+    show_ends: bool,
+    show_tabs: bool,
 }
 
 // --------------------------------------------------
@@ -70,12 +74,28 @@ pub fn get_args() -> MyResult<Config> {
                 .help("Number non-blank lines")
                 .takes_value(false),
         )
+        .arg(
+            Arg::with_name("show_ends")
+                .short("E")
+                .long("show-ends")
+                .help("display $ at end of each line")
+                .takes_value(false),
+        )
+        .arg(
+            Arg::with_name("show_tabs")
+                .short("T")
+                .long("show-tabs")
+                .help("display TAB characters as ^I")
+                .takes_value(false),
+        )
         .get_matches();
 
     Ok(Config {
         files: matches.values_of_lossy("files").unwrap(),
         number_lines: matches.is_present("number"),
         number_nonblank_lines: matches.is_present("number_nonblank"),
+        show_ends: matches.is_present("show_ends"),
+        show_tabs: matches.is_present("show_tabs"),
     })
 }
 
@@ -88,19 +108,27 @@ pub fn run(config: Config) -> MyResult<()> {
             Ok(file) => {
                 for (_, line_result) in file.lines().enumerate() {
                     let line = line_result?;
+                    let mut line_to_be_printed = format!("{}", line);
+
+                    if config.show_tabs {
+                        line_to_be_printed = line_to_be_printed.replace("\t", TAB_ESCAPE);
+                    }
+
                     if config.number_lines {
                         last_num += 1;
-                        println!("{:6}\t{}", last_num, line);
+                        line_to_be_printed = format!("{:6}\t{}", last_num, line_to_be_printed);
                     } else if config.number_nonblank_lines {
                         if !line.is_empty() {
                             last_num += 1;
-                            println!("{:6}\t{}", last_num, line);
-                        } else {
-                            println!();
-                        }
-                    } else {
-                        println!("{}", line);
+                            line_to_be_printed = format!("{:6}\t{}", last_num, line_to_be_printed);
+                        } 
                     }
+
+                    if config.show_ends {
+                        line_to_be_printed = format!("{}$", line_to_be_printed);
+                    }
+
+                    println!("{}",line_to_be_printed);
                 }
             }
         }
